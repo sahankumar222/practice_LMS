@@ -1,0 +1,16 @@
+{
+	"name": "sql_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "plmsdb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "IncrementalLoad"
+		}
+	}
+}
