@@ -1,0 +1,61 @@
+{
+	"name": "new_load",
+	"properties": {
+		"activities": [
+			{
+				"name": "sqltable_load",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "sql_ds",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "new_load",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "sqltable_load",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "new_load",
+					"value": {
+						"value": "@concat(\n    if(equals(substring(activity('sqltable_load').output.firstRow.last_name, 5, 2), 'Q4'),\n        string(add(int(substring(activity('sqltable_load').output.firstRow.last_name, 0, 4)), 1)),\n        substring(activity('sqltable_load').output.firstRow.last_name, 0,4)\n    ), '_Q',\n    if(equals(substring(activity('sqltable_load').output.firstRow.last_name, 5, 2), 'Q4'),\n        '1',\n        string(add(int(substring(activity('sqltable_load').output.firstRow.last_name, 6, 1)), 1))\n    )\n)",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"new_load": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
