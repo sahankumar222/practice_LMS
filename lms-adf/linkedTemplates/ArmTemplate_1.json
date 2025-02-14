@@ -6,6 +6,10 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "lms-adf"
+		},
+		"trigger_new_properties_pipeline_parameters_last_load": {
+			"type": "string",
+			"defaultValue": "2020"
 		}
 	},
 	"variables": {
@@ -81,7 +85,9 @@
 						"referenceName": "testing_bronze",
 						"type": "PipelineReference"
 					},
-					"parameters": {}
+					"parameters": {
+						"last_load": "[parameters('trigger_new_properties_pipeline_parameters_last_load')]"
+					}
 				},
 				"type": "TumblingWindowTrigger",
 				"typeProperties": {
