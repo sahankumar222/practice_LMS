@@ -1,0 +1,26 @@
+{
+	"name": "lms_sql_ds2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lms_ls_2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "DatasetName",
+				"type": "varchar"
+			},
+			{
+				"name": "LastLoadedQuarter",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "IncrementLoad"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,174 @@
+{
+	"name": "testing",
+	"properties": {
+		"activities": [
+			{
+				"name": "last_load",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "lms_sql_ds",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "new_load",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "last_load",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "new_load",
+					"value": {
+						"value": "@concat(\n    if(equals(substring(activity('last_load').output.firstRow.LastLoadedQuarter, 5, 2), 'Q4'),\n        string(add(int(substring(activity('last_load').output.firstRow.LastLoadedQuarter, 0, 4)), 1)),\n        substring(activity('last_load').output.firstRow.LastLoadedQuarter, 0, 4)\n    ), '_Q',\n    if(equals(substring(activity('last_load').output.firstRow.LastLoadedQuarter, 5, 2), 'Q4'),\n        '1',\n        string(add(int(substring(activity('last_load').output.firstRow.LastLoadedQuarter, 6, 1)), 1))\n    )\n)\n",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "transaction",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "new_load",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "lms_git_ds",
+						"type": "DatasetReference",
+						"parameters": {
+							"new_load": {
+								"value": "@variables('new_load')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "lms_adls_ds",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "transaction",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[incr_load_proc]",
+					"storedProcedureParameters": {
+						"new_load": {
+							"value": {
+								"value": "@variables('new_load')",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "lms_sql_ls",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"last_load": {
+				"type": "string",
+				"defaultValue": "2020_Q1"
+			}
+		},
+		"variables": {
+			"new_load": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-02-13T10:13:53Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
