@@ -94,9 +94,6 @@
 		},
 		"sql_ls_properties_typeProperties_userName": {
 			"value": "plmsadmin"
-		},
-		"trigger_new_properties_pipeline_parameters_last_load": {
-			"value": "2020"
 		}
 	}
 }

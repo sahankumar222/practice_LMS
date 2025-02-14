@@ -127,10 +127,6 @@
 			"type": "string",
 			"defaultValue": "plmsadmin"
 		},
-		"trigger_new_properties_pipeline_parameters_last_load": {
-			"type": "string",
-			"defaultValue": "2020"
-		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -251,29 +247,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "lms-adf_ArmTemplate_1",
-			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2024-03-01",
-			"properties": {
-				"mode": "incremental",
-				"templateLink": {
-					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
-					"contentVersion": "1.0.0.0"
-				},
-				"parameters": {
-					"factoryName": {
-						"value": "[parameters('factoryName')]"
-					},
-					"trigger_new_properties_pipeline_parameters_last_load": {
-						"value": "[parameters('trigger_new_properties_pipeline_parameters_last_load')]"
-					}
-				}
-			},
-			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'lms-adf_ArmTemplate_0')]"
-			]
 		}
 	]
 }
