@@ -7,6 +7,9 @@
 			"pipelineReference": {
 				"referenceName": "testing_bronze",
 				"type": "PipelineReference"
+			},
+			"parameters": {
+				"last_load": "2020"
 			}
 		},
 		"type": "TumblingWindowTrigger",
