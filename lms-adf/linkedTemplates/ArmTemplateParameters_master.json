@@ -5,7 +5,13 @@
 		"factoryName": {
 			"value": "lms-adf"
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
 		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"HttpServer1_password": {
 			"value": ""
 		},
 		"lms_adls_ls_accountKey": {
@@ -26,6 +32,9 @@
 		"sql_ls_password": {
 			"value": ""
 		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://plmssa.dfs.core.windows.net/"
+		},
 		"AzureSqlDatabase1_properties_typeProperties_server": {
 			"value": "plmsserver.database.windows.net"
 		},
@@ -34,6 +43,12 @@
 		},
 		"AzureSqlDatabase1_properties_typeProperties_userName": {
 			"value": "plmsadmin"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/sahankumar222/practice_LMS/refs/heads/main/raw/"
+		},
+		"HttpServer1_properties_typeProperties_userName": {
+			"value": "sahankumar222"
 		},
 		"lms_adls_ls_properties_typeProperties_url": {
 			"value": "https://lmsstorageaccount2025.dfs.core.windows.net/"
