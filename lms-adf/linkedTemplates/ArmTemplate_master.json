@@ -1,0 +1,217 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "lms-adf"
+		},
+		"AzureSqlDatabase1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
+		},
+		"lms_adls_ls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'lms_adls_ls'"
+		},
+		"lms_git_ls_inc_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'lms_git_ls_inc'"
+		},
+		"lms_ls_2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'lms_ls_2'"
+		},
+		"lms_sql_ls_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'lms_sql_ls'"
+		},
+		"plmsdb_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'plmsdb'"
+		},
+		"sql_ls_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'sql_ls'"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "plmsserver.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "plms_db"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "plmsadmin"
+		},
+		"lms_adls_ls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://lmsstorageaccount2025.dfs.core.windows.net/"
+		},
+		"lms_git_ls_inc_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/sahankumar222/Library-Management-System/refs/heads/main/Raw-Data/"
+		},
+		"lms_git_ls_inc_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sahankumar222@gmail.com"
+		},
+		"lms_ls_2_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "lms-server-sql.database.windows.net"
+		},
+		"lms_ls_2_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "lms-database"
+		},
+		"lms_ls_2_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"lms_sql_ls_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "lms-server-sql.database.windows.net"
+		},
+		"lms_sql_ls_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "lms-database"
+		},
+		"lms_sql_ls_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"plmsdb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "plmsserver.database.windows.net"
+		},
+		"plmsdb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "plms_db"
+		},
+		"plmsdb_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "plmsadmin"
+		},
+		"sql_ls_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "plmsserver.database.windows.net"
+		},
+		"sql_ls_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "plms_db"
+		},
+		"sql_ls_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "plmsadmin"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "lms-adf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureSqlDatabase1_password": {
+						"value": "[parameters('AzureSqlDatabase1_password')]"
+					},
+					"lms_adls_ls_accountKey": {
+						"value": "[parameters('lms_adls_ls_accountKey')]"
+					},
+					"lms_git_ls_inc_password": {
+						"value": "[parameters('lms_git_ls_inc_password')]"
+					},
+					"lms_ls_2_password": {
+						"value": "[parameters('lms_ls_2_password')]"
+					},
+					"lms_sql_ls_password": {
+						"value": "[parameters('lms_sql_ls_password')]"
+					},
+					"plmsdb_password": {
+						"value": "[parameters('plmsdb_password')]"
+					},
+					"sql_ls_password": {
+						"value": "[parameters('sql_ls_password')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_server": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_server')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_database": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_database')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_userName')]"
+					},
+					"lms_adls_ls_properties_typeProperties_url": {
+						"value": "[parameters('lms_adls_ls_properties_typeProperties_url')]"
+					},
+					"lms_git_ls_inc_properties_typeProperties_url": {
+						"value": "[parameters('lms_git_ls_inc_properties_typeProperties_url')]"
+					},
+					"lms_git_ls_inc_properties_typeProperties_userName": {
+						"value": "[parameters('lms_git_ls_inc_properties_typeProperties_userName')]"
+					},
+					"lms_ls_2_properties_typeProperties_server": {
+						"value": "[parameters('lms_ls_2_properties_typeProperties_server')]"
+					},
+					"lms_ls_2_properties_typeProperties_database": {
+						"value": "[parameters('lms_ls_2_properties_typeProperties_database')]"
+					},
+					"lms_ls_2_properties_typeProperties_userName": {
+						"value": "[parameters('lms_ls_2_properties_typeProperties_userName')]"
+					},
+					"lms_sql_ls_properties_typeProperties_server": {
+						"value": "[parameters('lms_sql_ls_properties_typeProperties_server')]"
+					},
+					"lms_sql_ls_properties_typeProperties_database": {
+						"value": "[parameters('lms_sql_ls_properties_typeProperties_database')]"
+					},
+					"lms_sql_ls_properties_typeProperties_userName": {
+						"value": "[parameters('lms_sql_ls_properties_typeProperties_userName')]"
+					},
+					"plmsdb_properties_typeProperties_server": {
+						"value": "[parameters('plmsdb_properties_typeProperties_server')]"
+					},
+					"plmsdb_properties_typeProperties_database": {
+						"value": "[parameters('plmsdb_properties_typeProperties_database')]"
+					},
+					"plmsdb_properties_typeProperties_userName": {
+						"value": "[parameters('plmsdb_properties_typeProperties_userName')]"
+					},
+					"sql_ls_properties_typeProperties_server": {
+						"value": "[parameters('sql_ls_properties_typeProperties_server')]"
+					},
+					"sql_ls_properties_typeProperties_database": {
+						"value": "[parameters('sql_ls_properties_typeProperties_database')]"
+					},
+					"sql_ls_properties_typeProperties_userName": {
+						"value": "[parameters('sql_ls_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

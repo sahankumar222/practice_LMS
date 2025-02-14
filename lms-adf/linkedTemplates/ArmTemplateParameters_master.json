@@ -1,0 +1,90 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "lms-adf"
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"lms_adls_ls_accountKey": {
+			"value": ""
+		},
+		"lms_git_ls_inc_password": {
+			"value": ""
+		},
+		"lms_ls_2_password": {
+			"value": ""
+		},
+		"lms_sql_ls_password": {
+			"value": ""
+		},
+		"plmsdb_password": {
+			"value": ""
+		},
+		"sql_ls_password": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "plmsserver.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "plms_db"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "plmsadmin"
+		},
+		"lms_adls_ls_properties_typeProperties_url": {
+			"value": "https://lmsstorageaccount2025.dfs.core.windows.net/"
+		},
+		"lms_git_ls_inc_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/sahankumar222/Library-Management-System/refs/heads/main/Raw-Data/"
+		},
+		"lms_git_ls_inc_properties_typeProperties_userName": {
+			"value": "sahankumar222@gmail.com"
+		},
+		"lms_ls_2_properties_typeProperties_server": {
+			"value": "lms-server-sql.database.windows.net"
+		},
+		"lms_ls_2_properties_typeProperties_database": {
+			"value": "lms-database"
+		},
+		"lms_ls_2_properties_typeProperties_userName": {
+			"value": "sqladmin"
+		},
+		"lms_sql_ls_properties_typeProperties_server": {
+			"value": "lms-server-sql.database.windows.net"
+		},
+		"lms_sql_ls_properties_typeProperties_database": {
+			"value": "lms-database"
+		},
+		"lms_sql_ls_properties_typeProperties_userName": {
+			"value": "sqladmin"
+		},
+		"plmsdb_properties_typeProperties_server": {
+			"value": "plmsserver.database.windows.net"
+		},
+		"plmsdb_properties_typeProperties_database": {
+			"value": "plms_db"
+		},
+		"plmsdb_properties_typeProperties_userName": {
+			"value": "plmsadmin"
+		},
+		"sql_ls_properties_typeProperties_server": {
+			"value": "plmsserver.database.windows.net"
+		},
+		"sql_ls_properties_typeProperties_database": {
+			"value": "plms_db"
+		},
+		"sql_ls_properties_typeProperties_userName": {
+			"value": "plmsadmin"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
